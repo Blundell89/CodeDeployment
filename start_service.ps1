@@ -1,6 +1,5 @@
 
-param([Parameter(Mandatory=$True)][string]$serviceName)
-param([Parameter(Mandatory=$True)][string]$timeOut)
+param([Parameter(Mandatory=$True)][string]$serviceName, [Parameter(Mandatory=$True)][string]$timeOut)
 
 if([string]::IsNullOrEmpty($serviceName))
 {
