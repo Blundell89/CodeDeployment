@@ -1,6 +1,4 @@
-param([Parameter(Mandatory=$True)][string]$serviceName, [Parameter(Mandatory=$True)][string]$servicePath)
-#param([Parameter(Mandatory=$True)][string]$serviceStopTimeOut)
-$serviceStopTimeOut = "00:03:00"
+param([Parameter(Mandatory=$True)][string]$serviceName, [Parameter(Mandatory=$True)][string]$servicePath, [Parameter(Mandatory=$True)][string]$serviceStopTimeOut)
 
 if([string]::IsNullOrEmpty($serviceName))
 {
@@ -20,9 +18,7 @@ if([string]::IsNullOrEmpty($serviceStopTimeOut))
    Exit 15
 }
 
-
 Write-Output "Stop and UnInstall Service: $serviceName , InstallPath: $servicePath, ServiceTimeOut $serviceStopTimeOut"
-
 
 $serviceInstance = Get-Service $serviceName -ErrorAction SilentlyContinue
 
@@ -33,7 +29,6 @@ if ($serviceInstance -ne $null) {
 	# We stop without using the -Force option to allow graceful close down
     Stop-Service $serviceName 
     
-    #$serviceInstance.WaitForStatus('Stopped', '00:04:00')
 	$serviceInstance.WaitForStatus('Stopped', $serviceStopTimeOut)
 	
 	if ($serviceInstance.Status -ne "Stopped")
