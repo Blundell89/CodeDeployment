@@ -1,7 +1,7 @@
 param([Parameter(Mandatory=$True)][string]$serviceName)
 param([Parameter(Mandatory=$True)][string]$servicePath)
-param([Parameter(Mandatory=$True)]$serviceStopTimeOut)
-
+#param([Parameter(Mandatory=$True)][string]$serviceStopTimeOut)
+$serviceStopTimeOut = "00:03:00"
 
 if([string]::IsNullOrEmpty($serviceName))
 {
