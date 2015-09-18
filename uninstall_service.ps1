@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$True)][string]$serviceName), [Parameter(Mandatory=$True)][string]$servicePath)
+param([Parameter(Mandatory=$True)][string]$serviceName, [Parameter(Mandatory=$True)][string]$servicePath)
 #param([Parameter(Mandatory=$True)][string]$serviceStopTimeOut)
 $serviceStopTimeOut = "00:03:00"
 
