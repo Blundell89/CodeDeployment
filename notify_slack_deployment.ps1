@@ -4,6 +4,9 @@ $url = "https://hooks.slack.com/services/T08S7T0KX/B0H6GAB1V/qnMJYVlVWLYeBeuDQeY
 
 $payload = @{
   "text" = "[$EnvTag] - Deployed: $env:APPLICATION_NAME - v$env:APPVEYOR_BUILD_VERSION";
-  } | ConvertTo-Json;
+} | ConvertTo-Json;
 
-Invoke-RestMethod $url -Method Post -Body $payload -ContentType 'application/json';
+
+If ($EnvTag -eq "LIVE") {
+  Invoke-RestMethod $url -Method Post -Body $payload -ContentType 'application/json';
+}
