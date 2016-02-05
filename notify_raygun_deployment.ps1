@@ -1,29 +1,14 @@
-﻿[CmdletBinding()]
-Param(
-    [Parameter(Mandatory=$True)]
-    [string] $raygunApiKey,
-    [Parameter(Mandatory=$True)]
-    [string] $version,
-    [Parameter(Mandatory=$True)]
-    [string] $ownerName,
-    [Parameter(Mandatory=$True)]
-    [string] $emailAddress,
-    [Parameter()]
-    [string] $scmIdentifier,
-    [Parameter()]
-    [string] $releaseNotes
-)
-
-Write-Host "Adding deployment in Raygun"
+﻿Write-Host "Adding deployment in Raygun"
 $url = "https://app.raygun.io/deployments?authToken=egz6yWcBUAtCt2EPTxONol8DfvSJpNYm"
+$apiKey = [Environment]::GetEnvironmentVariable("Liberis:Environment.Raygun.APIKey")
 
 $command = ConvertTo-Json @{ 
-    apiKey = $raygunApiKey
-    version = $version
-    ownerName = $ownerName
-    emailAddress = $emailAddress
-    scmIdentifier = $scmIdentifier
-    releaseNotes = $releaseNotes
+    apiKey = $apiKey
+    version = $env:APPVEYOR_BUILD_VERSION
+    ownerName = $env:APPVEYOR_REPO_COMMIT_AUTHOR
+    emailAddress = $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL
+    scmIdentifier = $env:APPVEYOR_REPO_COMMIT
+    releaseNotes = $env:APPVEYOR_REPO_COMMIT_MESSAGE
 }
 
 $bytes = [System.Text.Encoding]::ASCII.GetBytes($command)
